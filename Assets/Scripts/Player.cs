@@ -12,9 +12,18 @@ public class Player : MonoBehaviour
     private int lives = 3;
     float timeGap = 0.5f;
     float canFire = -1f;
+
+    private SpawnManager spawnManager;
     void Start()
     {
         transform.position = new Vector3(0,0,0);
+
+        spawnManager = GameObject.Find("SpawnManager").GetComponent<SpawnManager>();
+
+        if(spawnManager == null)
+        {
+            Debug.Log("Someting Wrong check");
+        }
     }
     // Update is called once per frame
     void Update()
@@ -46,6 +55,7 @@ public class Player : MonoBehaviour
         lives--;
         if(lives < 1)
         {
+            spawnManager.playerDeth();
             Destroy(this.gameObject);
         }
     }
